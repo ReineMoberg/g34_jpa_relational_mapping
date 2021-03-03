@@ -1,5 +1,7 @@
 package se.lexicon.jpa_relational_mapping.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -18,6 +20,8 @@ public class StudentCourse {
     @JoinColumn(table = "student_course" , name = "course_id")
     private Course course;
 
+    @CreationTimestamp // set default date from database
+    @Column(nullable = false,columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
     private LocalDateTime createDate;
 
 
