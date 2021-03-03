@@ -3,6 +3,7 @@ package se.lexicon.jpa_relational_mapping.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,9 +11,9 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(nullable = false,length = 255)
+    @Column(nullable = false, length = 255)
     private String firstName;
-    @Column(nullable = false,length = 255)
+    @Column(nullable = false, length = 255)
     private String lastName;
     @Column(nullable = false, unique = true)
     private String email;
@@ -23,10 +24,27 @@ public class Student {
     private LocalDateTime registerDate;
 
     // Uni Directional
-    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}) // all CRUD operation
-    @JoinColumn(name = "address_id",unique = true)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}) // all CRUD operation
+    @JoinColumn(name = "address_id", unique = true)
     private Address address;
 
+    @OneToMany(mappedBy = "student")
+    private List<Competence> competences;
+
+    // methods
+    //convince methods
+    public void addCompetence(Competence competence){
+        competence.setStudent(this);
+        competences.add(competence);
+    }
+
+    //convince methods
+    public void removeCompetence(Competence competence){
+        competence.setStudent(null);
+        competences.remove(competence);
+    }
+
+    // setters - getters
     public int getId() {
         return id;
     }
@@ -89,6 +107,14 @@ public class Student {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public List<Competence> getCompetences() {
+        return competences;
+    }
+
+    public void setCompetences(List<Competence> competences) {
+        this.competences = competences;
     }
 
     @Override
