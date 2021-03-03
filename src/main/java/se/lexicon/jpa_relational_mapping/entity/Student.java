@@ -31,15 +31,22 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Competence> competences;
 
+
+    @ManyToMany()
+    @JoinTable(name = "students_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> courses;
+
     // methods
     //convince methods
-    public void addCompetence(Competence competence){
+    public void addCompetence(Competence competence) {
         competence.setStudent(this);
         competences.add(competence);
     }
 
     //convince methods
-    public void removeCompetence(Competence competence){
+    public void removeCompetence(Competence competence) {
         competence.setStudent(null);
         competences.remove(competence);
     }
@@ -115,6 +122,14 @@ public class Student {
 
     public void setCompetences(List<Competence> competences) {
         this.competences = competences;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     @Override
