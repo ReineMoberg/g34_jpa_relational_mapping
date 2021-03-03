@@ -38,6 +38,10 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<Course> courses;
 
+    @OneToMany(mappedBy = "course")
+    private List<StudentCourse> studentCourses;
+
+
     // methods
     //convince methods
     public void addCompetence(Competence competence) {
@@ -130,6 +134,14 @@ public class Student {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public List<StudentCourse> getStudentCourses() {
+        return studentCourses;
+    }
+
+    public void setStudentCourses(List<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
     }
 
     @Override

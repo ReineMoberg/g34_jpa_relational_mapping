@@ -17,8 +17,10 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Student> students;
 
-    // convince methods
+    @OneToMany(mappedBy = "student")
+    private List<StudentCourse> studentCourses;
 
+    // convince methods
 
     public int getId() {
         return id;
@@ -42,6 +44,14 @@ public class Course {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public List<StudentCourse> getStudentCourses() {
+        return studentCourses;
+    }
+
+    public void setStudentCourses(List<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
     }
 }
 
